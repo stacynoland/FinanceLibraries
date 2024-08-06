@@ -21,7 +21,7 @@ public static class TaxLibrary
     public static decimal CalculateFederalIncome(decimal payPerPeriod, bool single, int numPayPeriods)
     {
         Dictionary<string, decimal> result = new Dictionary<string, decimal>();
-        Dictionary<int, Dictionary<string, decimal>> taxBracket;
+        List<Dictionary<string, decimal>> taxBracket;
         decimal deduction;
 
         if (single)
@@ -37,7 +37,7 @@ public static class TaxLibrary
 
         decimal annualGrossPay = payPerPeriod * numPayPeriods - deduction;
 
-        foreach (var bracket in taxBracket.Values)
+        foreach (var bracket in taxBracket)
         {
             if (annualGrossPay >= bracket["Min"] && annualGrossPay < bracket["Max"])
             {
